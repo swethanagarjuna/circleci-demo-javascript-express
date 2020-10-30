@@ -1,4 +1,9 @@
 version: 2.1
+commands:
+  print_pipeline_id:
+    description: "prints the current pipleline id"
+    steps:
+      -  run: echo $CIRCLE_WORKFLOW_ID
 jobs:
   save_hello_world_output:
     docker: 
@@ -16,6 +21,11 @@ jobs:
       -  attach_workspace:
            at:  ~/
       -  run: cat ~/output.txt
+  print_pp:
+    docker: 
+      -  image: circleci/node:13.8.0
+    steps:
+      -  print_pipeline_id
   build:
     working_directory: ~/mern-starter
     docker:
@@ -52,6 +62,7 @@ jobs:
 workflows:
   my_workflow:
     jobs:
+      -  print_pp
       -  save_hello_world_output
       -  print_output_file:
            requires:
