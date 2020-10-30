@@ -26,6 +26,13 @@ jobs:
       -  image: circleci/node:13.8.0
     steps:
       -  print_pipeline_id
+  tofail:
+    docker: 
+      -  image: circleci/node:13.8.0
+    steps:
+      -  run: return 1
+      -  run: echo "job failed"
+           when: on_fail
   build:
     working_directory: ~/mern-starter
     docker:
@@ -63,6 +70,7 @@ workflows:
   my_workflow:
     jobs:
       -  print_pp
+      -  tofail
       -  save_hello_world_output
       -  print_output_file:
            requires:
