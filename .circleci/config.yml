@@ -31,7 +31,8 @@ jobs:
       -  image: circleci/node:13.8.0
     steps:
       -  run: return 1
-      -  run: echo "job failed"
+      -  run: 
+           command: echo "job failed"
            when: on_fail
   build:
     working_directory: ~/mern-starter
