@@ -1,14 +1,4 @@
 version: 2.1
-
-workflows:
-  my_workflow:
-    jobs:
-      -  save_hello_world_output
-      -  print_output_file:
-           requires:
-             -  save_hello_world_output
-      -  build
-
 jobs:
   save_hello_world_output:
     docker: 
@@ -59,3 +49,11 @@ jobs:
           prefix: coverage
       - store_test_results:
           path: test-results.xml
+workflows:
+  my_workflow:
+    jobs:
+      -  save_hello_world_output
+      -  print_output_file:
+           requires:
+             -  save_hello_world_output
+      -  build
