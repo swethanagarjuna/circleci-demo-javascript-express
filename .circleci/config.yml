@@ -1,14 +1,13 @@
 version: 2.1
 
 workflows:
-  version: 3
-  build:
+  my_workflow:
     jobs:
-      - save_hello_world_output
-      - print_output_file:
-          requires:
-            - save_hello_world_output
-      - build
+      -  save_hello_world_output
+      -  print_output_file:
+           requires:
+             -  save_hello_world_output
+      -  build
 
 jobs:
   save_hello_world_output:
@@ -25,7 +24,7 @@ jobs:
       -  image: circleci/node:13.8.0
     steps:
       -  attach_workspace:
-           at:  ~/output.txt
+           at:  ~/
       -  run cat ~/output.txt
   build:
     working_directory: ~/mern-starter
